@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paru ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#ff6f91;
+}
+
+/* BACKGROUND TEXT */
+.bg{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  pointer-events:none;
+}
+
+.bg span{
+  font-size:26px;
+  font-weight:900;
+  color:rgba(255,255,255,0.3);
+  letter-spacing:4px;
+  line-height:2;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  width:92%;
+  max-width:380px;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  position:relative;
+  z-index:2;
+}
+
+h1{color:#ff2f5e}
+p{color:#444;font-size:16px;min-height:60px}
+
+/* YES BUTTON */
+#yes{
+  font-size:24px;
+  padding:22px 55px;
+  border-radius:50px;
+  border:none;
+  background:#ff2f5e;
+  color:#fff;
+  box-shadow:0 0 30px #ff2f5e;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  cursor:pointer;
+}
+
+#yes.active{
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(1.12)}
+  100%{transform:translateX(-50%) scale(1)}
+}
+
+.final{display:none}
+
+.heart{
+  position:fixed;
+  bottom:-30px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-100vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg">
+  <span>
+    I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕<br>
+    I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕<br>
+    I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕 I LOVE YOU SO MUCH 💕
+  </span>
+</div>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="all i want.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+  <h1>Paru ❤️</h1>
+ 
+<h2>Will you be my Valentine? 💘</h2>
+
+  <p id="msg">hri hri dn obann 😏</p>
+
+  <button id="yes">YES 🥰💋🤗</button>
+</div>
+
+<div class="card final" id="final">
+  <h1>🤗💋</h1>
+  <p>
+    Aiyoooo finally 😌❤️<br><br>
+    මං ඔයාට ආදරෙයි බබා 💕<br>
+    Daddy wants you 🥰<br>
+    මගේ මැණික ❤️
+  </p>
+</div>
+
+<script>
+const yes = document.getElementById("yes");
+const msg = document.getElementById("msg");
+const card = document.getElementById("card");
+const final = document.getElementById("final");
+
+let phase = 1; // 1 = first tease, 2 = second tease, 3 = clickable
+
+/* MOVE BUTTON WHEN SHE TRIES TO TAP */
+function moveButton(){
+  if(phase < 3){
+    const x = Math.random()*200 - 100;
+    const y = Math.random()*120 - 60;
+    yes.style.transform = `translate(${x}px, ${y}px)`;
+  }
+}
+
+yes.addEventListener("touchstart", moveButton);
+yes.addEventListener("mouseover", moveButton);
+
+/* PHASE TIMING */
+setTimeout(()=>{
+  phase = 2;
+  msg.innerHTML = "huuuu ahu una mati aleeee 😂❤️";
+},20000);
+
+setTimeout(()=>{
+  phase = 3;
+  msg.innerHTML = "Hari hari 😌❤️ obanna puluwan";
+  yes.classList.add("active");
+},35000);
+
+/* FINAL CLICK */
+yes.onclick = ()=>{
+  if(phase === 3){
+    card.style.display="none";
+    final.style.display="block";
+    hearts();
+  }
+};
+
+/* HEARTS */
+function hearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML=["❤️","💋","😘","🤗"][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=Math.random()*25+20+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  },250);
+}
+</script>
+
+</body>
+</html>
